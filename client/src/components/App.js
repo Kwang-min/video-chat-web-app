@@ -1,8 +1,10 @@
 import React, { Suspense }  from 'react';
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import LandingPage from './views/LandingPage/LandingPage'
+import Room from './views/Room/Room'
 import Footer from './views/Footer/Footer'
 import NavBar from './views/NavBar/NavBar'
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
         
         <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route exact path="/room/:roomId" component={Room} />
         </Switch>
           
       </div>
