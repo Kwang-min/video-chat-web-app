@@ -1,7 +1,6 @@
 import React,{ useEffect, useState, useRef } from 'react'
 import io from "socket.io-client";
 import Peer from 'peerjs';
-import styled from "styled-components";
 
 function Room(props) {
 
@@ -18,6 +17,12 @@ function Room(props) {
     useEffect(() => {
         
         const myVideo = document.createElement('video')
+        myVideo.style.width = '30%'
+        myVideo.style.height = '30%'
+        myVideo.style.border = '2px solid'
+        myVideo.style.margin = '20px'
+
+
         socket.current = io.connect("/");
         myPeer.current = new Peer(undefined, {
             host: '/',
@@ -36,6 +41,10 @@ function Room(props) {
             //전화오면 내 스트림 담아서 답장해줌
             call.answer(stream)
             const video = document.createElement('video')
+            video.style.width = '30%'
+            video.style.height = '30%'
+            video.style.border = '2px solid'
+            video.style.margin = '20px'
             //콜올때 상대방 스트림 오는 거 받아서 내 화면에 비디오 생성
             call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream)
@@ -75,6 +84,11 @@ function Room(props) {
         const call = myPeer.current.call(userId, stream)
         
         const video = document.createElement('video')
+        video.style.width = '30%'
+        video.style.height = '30%'
+        video.style.border = '2px solid'
+        video.style.margin = '20px'
+
         //스트림 답장오는 거 받아서 상대방 비디오 생성
         
         call.on('stream', userVideoStream => {
