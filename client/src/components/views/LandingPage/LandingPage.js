@@ -23,12 +23,14 @@ function LandingPage(props) {
         axios.post('/')
             .then(response => {
                 if(response.data.success) {
+
                     const value = {
                         roomId: response.data.roomId
                     }
                     axios.post('/appendRoomList', value)
                     
                     props.history.push(`/room/${response.data.roomId}`);
+
                 } else {
                     alert('방만들기 실패!')
                 }
@@ -41,13 +43,16 @@ function LandingPage(props) {
         <div>
             <div>talkin bout korea!</div>
             <button onClick={makeRoom}>make a room</button>
+            <div style={{ display: 'flex', justifyContent: 'center'}}>
             {roomList && 
                 roomList.map((room,index) => (
-                        <div key={index}>
-                            <a href={`/room/${room}`} > room  </a>
+                        <div key={index} style={{ width: '220px', height: '120px', margin: '20px', 
+                            border: '1px solid', borderRadius: '4px', backgroundColor: '#1e272d' }} >
+                            <a href={`/room/${room}`} > join and talk </a>
                         </div>
                 ))
             }
+            </div>
         </div>
     )
 }
