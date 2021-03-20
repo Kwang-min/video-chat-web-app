@@ -4,6 +4,7 @@ import LandingPage from './views/LandingPage/LandingPage'
 import Room from './views/Room/Room'
 import Footer from './views/Footer/Footer'
 import NavBar from './views/NavBar/NavBar'
+import './App.css'
 
 
 function App() {

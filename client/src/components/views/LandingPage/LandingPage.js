@@ -1,5 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import axios from 'axios'
+import { Button } from 'antd';
+import { PhoneFilled } from '@ant-design/icons';
 
 
 function LandingPage(props) {
@@ -41,14 +43,18 @@ function LandingPage(props) {
     
     return (
         <div>
-            <div>talkin bout korea!</div>
-            <button onClick={makeRoom}>make a room</button>
+            <div style={{ textAlign: 'center', marginTop: '70px' }}>
+                <h1 >talkin bout korea!</h1>
+                <br />
+                <Button onClick={makeRoom} type="primary">Create a new room</Button>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'center'}}>
             {roomList && 
                 roomList.map((room,index) => (
-                        <div key={index} style={{ width: '220px', height: '120px', margin: '20px', 
-                            border: '1px solid', borderRadius: '4px', backgroundColor: '#1e272d' }} >
-                            <a href={`/room/${room}`} > join and talk </a>
+                        <div key={index} style={{ width: '250px', height: '170px', margin: '20px', 
+                             borderRadius: '4px', backgroundColor: '#1e272d' }} >
+                            <a href={`/room/${room}` } style={{ fontSize: '20px', 
+                            position: 'relative', top: '65px', left: '55px'}} > join and talk <PhoneFilled /></a>
                         </div>
                 ))
             }
