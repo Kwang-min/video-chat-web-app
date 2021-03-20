@@ -1,6 +1,7 @@
 import React,{ useEffect, useState, useRef } from 'react'
 import io from "socket.io-client";
 import Peer from 'peerjs';
+import styled from "styled-components";
 
 function Room(props) {
 
@@ -95,10 +96,13 @@ function Room(props) {
         videoGrid.current.append(video)
     }
 
+    window.onpopstate = () => {
+        socket.current.close();
+    }
 
     return (
         <div>
-            <div ref={videoGrid}></div>
+            <div ref={videoGrid} style={{ display: 'flex', justifyContent: 'center'}}></div>
         </div>
     )
 }
