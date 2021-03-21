@@ -1,6 +1,7 @@
 import React,{ useEffect, useState, useRef } from 'react'
 import io from "socket.io-client";
 import Peer from 'peerjs';
+import { PhoneFilled } from '@ant-design/icons';
 
 function Room(props) {
 
@@ -115,9 +116,18 @@ function Room(props) {
     }
 
     return (
-        <div>
-            <div ref={videoGrid} style={{ display: 'flex', justifyContent: 'center'}}></div>
-        </div>
+        <>
+            <div>
+                <div ref={videoGrid} style={{ display: 'flex', justifyContent: 'center'}}></div>
+            </div>
+            <div style={{  textAlign: 'center' }}>
+                <a href='/'>
+                    <div style={{ backgroundColor: 'red', borderRadius: '4px', width: '210px', height: '50px', display: 'inline-block'}}>
+                        <PhoneFilled style={{ marginTop: '5px', fontSize:'40px', color: 'white' }}/>
+                    </div>
+                </a>
+            </div>
+        </>
     )
 }
 
