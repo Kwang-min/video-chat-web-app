@@ -24,7 +24,7 @@ function Room(props) {
         myVideo.style.margin = '20px'
 
 
-        socket.current = io.connect("/");
+        socket.current = io.connect("/room");
         myPeer.current = new Peer(undefined, {
             host: '/',
             port: '3001'
@@ -122,8 +122,8 @@ function Room(props) {
             </div>
             <div style={{  textAlign: 'center' }}>
                 <a href='/'>
-                    <div style={{ backgroundColor: 'red', borderRadius: '4px', width: '210px', height: '50px', display: 'inline-block'}}>
-                        <PhoneFilled style={{ marginTop: '5px', fontSize:'40px', color: 'white' }}/>
+                    <div style={{ backgroundColor: 'red', borderRadius: '4px', width: '180px', height: '50px', display: 'inline-block'}}>
+                        <PhoneFilled style={{ marginTop: '10px', fontSize:'30px', color: 'white' }}/>
                     </div>
                 </a>
             </div>

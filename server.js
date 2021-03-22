@@ -20,6 +20,7 @@ app.post('/', (req, res) => {
 })
 app.post('/appendRoomList', (req, res) => {
     roomList.push(req.body.roomId)
+    io.of('/main').emit('make-room', roomList)
 })
 app.post('/getRoomList', (req, res) => {
     res.status(200).json({ success: true, roomList: roomList })
@@ -27,7 +28,7 @@ app.post('/getRoomList', (req, res) => {
 
 
 
-io.on('connection', socket => {
+io.of("/room").on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId)
     socket.broadcast.to(roomId).emit('user-connected', userId)
@@ -38,6 +39,7 @@ io.on('connection', socket => {
     } else {
         usersInRooms[roomId][userId] = userId;
     }
+
 
     socket.on('disconnect', () => {
       
@@ -54,7 +56,7 @@ io.on('connection', socket => {
         }
       }
 
-      
+      io.of('/main').emit('delete-room', roomList)
 
     })
 

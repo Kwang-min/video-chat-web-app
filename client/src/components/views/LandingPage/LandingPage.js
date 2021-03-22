@@ -1,14 +1,28 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useEffect, useState, useRef } from 'react'
 import axios from 'axios'
+import io from "socket.io-client";
 import { Button } from 'antd';
 import { PhoneFilled, SmileFilled } from '@ant-design/icons';
 
 
 function LandingPage(props) {
 
+    const socket = useRef();
+
     const [roomList, setroomList] = useState(null)
     
     useEffect(() => {
+
+        socket.current = io.connect("/main");
+
+        socket.current.on('make-room', roomList => {
+            setroomList(roomList)
+        })
+
+        socket.current.on('delete-room', roomList => {
+            setroomList(roomList)
+        })
+
         axios.post('/getRoomList')
             .then(response => {
                 if(response.data.success) {
