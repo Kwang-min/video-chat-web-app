@@ -16,14 +16,19 @@ function isEmpty(param) {
 }
 
 app.post('/', (req, res) => {
-  res.status(200).json({ success: true, roomId : uuidV4() })
+  res.status(200).json({ success: true, roomId: uuidV4() })
 })
 app.post('/appendRoomList', (req, res) => {
-    roomList.push(req.body.roomId)
-    io.of('/main').emit('make-room', roomList)
+  let roomInfo = {
+    roomId: req.body.roomId,
+    roomName: req.body.roomName,
+    users: []
+  }
+  roomList.push(roomInfo)
+  
 })
 app.post('/getRoomList', (req, res) => {
-    res.status(200).json({ success: true, roomList: roomList })
+  res.status(200).json({ success: true, roomList: roomList })
 })
 
 
@@ -33,30 +38,37 @@ io.of("/room").on('connection', socket => {
     socket.join(roomId)
     socket.broadcast.to(roomId).emit('user-connected', userId)
 
-    if(usersInRooms[roomId] == undefined ) {
-        usersInRooms[roomId] = {};
-        usersInRooms[roomId][userId] = userId;
-    } else {
-        usersInRooms[roomId][userId] = userId;
+    for (var i = 0; i < roomList.length; i++) {
+      if (roomList[i]['roomId'] === roomId) {
+        roomList[i]['users'].push(userId)
+        
+      }
     }
-
+    io.of('/main').emit('join-user', roomList)
 
     socket.on('disconnect', () => {
-      
+
       socket.broadcast.to(roomId).emit('user-disconnected', userId)
-      delete usersInRooms[roomId][userId]
-
-      if(isEmpty(usersInRooms[roomId])) {
-
-        for(let i = 0; i < roomList.length; i++) {
-          if(roomList[i] === roomId)  {
-            roomList.splice(i, 1);
-            i--;
+      
+      for (var i = 0; i < roomList.length; i++) {
+        //룸 리스트에서 해당 룸 찾아주고
+        if (roomList[i]['roomId'] === roomId) {
+          //룸 유저 목록에서 해당 유저 찾아서 지워주고   
+          const length = roomList[i]['users'].length;
+          for (var s = 0; s < length ; s++) {
+            if (roomList[i]['users'][s] === userId) {
+              roomList[i]['users'].splice(s, 1);
+              //연결 끊긴 유저 지우고 나서 만약 남은 유저가 없으면 룸 삭제
+              if (isEmpty(roomList[i]['users'])) {
+                roomList.splice(i, 1);
+              }
+            }
           }
+
         }
       }
-
-      io.of('/main').emit('delete-room', roomList)
+      
+      io.of('/main').emit('disconnect-user', roomList)
 
     })
 
