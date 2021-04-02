@@ -9,8 +9,8 @@ function LeftMenu(props) {
     <Menu.Item key="Chat">
       <a href="/" style={{ color: "#61DAFB"}}>Chat</a>
     </Menu.Item>
-    <Menu.Item key="news">
-      <a href="/news" style={{ color: "#61DAFB"}}>Korean news</a>
+    <Menu.Item key="-">
+      <a href="/" style={{ color: "#61DAFB"}}>-</a>
     </Menu.Item>
 
   </Menu>
