@@ -15,8 +15,12 @@ function isEmpty(param) {
   return Object.keys(param).length === 0;
 }
 
-app.post('/', (req, res) => {
+app.get('/test',(req,res) => {
   console.log('hello!')
+})
+
+app.post('/', (req, res) => {
+  
   res.status(200).json({ success: true, roomId: uuidV4() })
 })
 app.post('/appendRoomList', (req, res) => {
