@@ -16,7 +16,8 @@ function Room(props) {
 
 
     useEffect(() => {
-        
+        console.log(navigator)
+        console.log(navigator.mediaDevices)
         const myVideo = document.createElement('video')
         myVideo.style.width = '30%'
         myVideo.style.height = '30%'
