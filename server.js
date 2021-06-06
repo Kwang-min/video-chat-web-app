@@ -16,6 +16,7 @@ function isEmpty(param) {
 }
 
 app.post('/', (req, res) => {
+  console.log('hello!')
   res.status(200).json({ success: true, roomId: uuidV4() })
 })
 app.post('/appendRoomList', (req, res) => {
