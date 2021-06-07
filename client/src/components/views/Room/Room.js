@@ -10,6 +10,8 @@ function Room(props) {
     const myPeer = useRef();
     const socket = useRef();
     
+    myPeer.current = new Peer();
+    
     const videoGrid = useRef();
 
     const peers = useRef({});
@@ -24,12 +26,12 @@ function Room(props) {
 
 
         socket.current = io.connect("/room");
-        console.log('client side',socket.current);
-        myPeer.current = new Peer(undefined, {
-            host: '/',
-            port: '3001'
-        })
-
+       
+        // myPeer.current = new Peer(undefined, {
+        //     host: 'http://3.37.98.191/',
+        //     port: '3001'
+        // })
+        console.log('client side',myPeer.current);
         navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true
