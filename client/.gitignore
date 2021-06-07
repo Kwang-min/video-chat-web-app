@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+!webpackDevServer.config.js
 /.pnp
 .pnp.js
 
