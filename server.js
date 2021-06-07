@@ -15,10 +15,6 @@ function isEmpty(param) {
   return Object.keys(param).length === 0;
 }
 
-app.get('/test',(req,res) => {
-  console.log('hello!')
-})
-
 app.post('/', (req, res) => {
   
   res.status(200).json({ success: true, roomId: uuidV4() })
@@ -39,6 +35,7 @@ app.post('/getRoomList', (req, res) => {
 
 
 io.of("/room").on('connection', socket => {
+  console.log('hi')
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId)
     socket.broadcast.to(roomId).emit('user-connected', userId)
