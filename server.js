@@ -81,5 +81,5 @@ io.of("/room").on('connection', socket => {
 
 })
 
-server.listen(8000)
+server.listen(80)
 
